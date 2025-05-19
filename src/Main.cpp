@@ -13,8 +13,8 @@
 using namespace camshit;
 
 int main() {
-    int width = 640;
-    int height = 480;
+    int width = 1280;
+    int height = 720;
     camera::Camera cam("/dev/video0", width, height);
     if (!cam.open_device() || !cam.init_device() || !cam.start_capturing()) {
         std::cerr << "Failed to initialize camera" << std::endl;
