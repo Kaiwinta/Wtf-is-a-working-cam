@@ -6,6 +6,10 @@
 */
 
 #include "Camera.hpp"
+#include "IEffect.hpp"
+#include "AEffect.hpp"
+#include "Vertical.hpp"
+#include "Horizontal.hpp"
 #include "Sdl2.hpp"
 
 #include <iostream>
@@ -27,6 +31,10 @@ int main() {
         unsigned char* frame_data;
         size_t frame_size;
         if (cam.capture_frame(frame_data, frame_size)) {
+            camshit::effects::reverse::horizontal::Horizontal horizontal_effect;
+            camshit::effects::reverse::vertical::Vertical vertical_effect;
+            horizontal_effect.applyEffect(frame_data, height, width);
+            vertical_effect.applyEffect(frame_data, height, width);
             sdl.updateFrame(frame_data);
         }
     }

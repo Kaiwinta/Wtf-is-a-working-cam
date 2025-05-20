@@ -20,6 +20,8 @@ set(SOURCES
     src/Main.cpp
     src/Camera/Camera.cpp
     src/Display/Sdl2.cpp
+    src/Effects/Reverse/Vertical/Vertical.cpp
+    src/Effects/Reverse/Horizontal/Horizontal.cpp
 )
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -rdynamic")
@@ -31,6 +33,10 @@ target_include_directories(CamShit PRIVATE
     ${PROJECT_SOURCE_DIR}/src/
     ${PROJECT_SOURCE_DIR}/src/Camera
     ${PROJECT_SOURCE_DIR}/src/Display
+    ${PROJECT_SOURCE_DIR}/src/Effects
+    ${PROJECT_SOURCE_DIR}/src/Effects/Reverse
+    ${PROJECT_SOURCE_DIR}/src/Effects/Reverse/Vertical
+    ${PROJECT_SOURCE_DIR}/src/Effects/Reverse/Horizontal
 )
 
 # Link libraries
