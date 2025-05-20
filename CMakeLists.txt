@@ -20,6 +20,12 @@ set(SOURCES
     src/Main.cpp
     src/Camera/Camera.cpp
     src/Display/Sdl2.cpp
+
+    src/Effects/ColorScales/ColorScales.cpp
+
+    src/Effects/Random/MiddleDuplication/MiddleDuplication.cpp
+
+    src/Effects/Reverse/Reverse.cpp
     src/Effects/Reverse/Vertical/Vertical.cpp
     src/Effects/Reverse/Horizontal/Horizontal.cpp
 )
@@ -33,10 +39,15 @@ target_include_directories(CamShit PRIVATE
     ${PROJECT_SOURCE_DIR}/src/
     ${PROJECT_SOURCE_DIR}/src/Camera
     ${PROJECT_SOURCE_DIR}/src/Display
+    ${PROJECT_SOURCE_DIR}/src/Enum
     ${PROJECT_SOURCE_DIR}/src/Effects
     ${PROJECT_SOURCE_DIR}/src/Effects/Reverse
+    ${PROJECT_SOURCE_DIR}/src/Effects/Random
+    ${PROJECT_SOURCE_DIR}/src/Effects/Random/MiddleDuplication
+    ${PROJECT_SOURCE_DIR}/src/Effects/ColorScales
     ${PROJECT_SOURCE_DIR}/src/Effects/Reverse/Vertical
     ${PROJECT_SOURCE_DIR}/src/Effects/Reverse/Horizontal
+
 )
 
 # Link libraries

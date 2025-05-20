@@ -14,7 +14,7 @@ namespace camshit::display {
         _height = height;
         _window = SDL_CreateWindow("Live Camera", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
         _renderer = SDL_CreateRenderer(_window, -1, 0);
-        _texture = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_YUY2, SDL_TEXTUREACCESS_STREAMING, width, height);
+        _texture = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_RGB24, SDL_TEXTUREACCESS_STREAMING, width, height);
         _running = true;
     }
 
@@ -37,7 +37,7 @@ namespace camshit::display {
     void Sdl2::updateFrame(unsigned char* buffer) {
         if (!_running) return;
         if (!buffer) return;
-        SDL_UpdateTexture(_texture, nullptr, buffer, _width * 2);
+        SDL_UpdateTexture(_texture, nullptr, buffer, _width * 3);
         SDL_RenderClear(_renderer);
         SDL_RenderCopy(_renderer, _texture, nullptr, nullptr);
         SDL_RenderPresent(_renderer);

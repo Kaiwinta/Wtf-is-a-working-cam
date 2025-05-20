@@ -10,7 +10,7 @@
 
 namespace camshit::effects::reverse::vertical {
     void Vertical::applyEffect(unsigned char* frame_data, size_t height, size_t width) {
-        size_t row_size = width * 2;
+        size_t row_size = width * 3;
         unsigned char* temp_row = new unsigned char[row_size];
 
         for (size_t i = 0; i < height / 2; ++i) {

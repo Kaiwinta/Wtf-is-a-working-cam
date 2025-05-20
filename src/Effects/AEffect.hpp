@@ -8,6 +8,7 @@
 #pragma once
 
 #include "IEffect.hpp"
+#include "EnumPlan.hpp"
 
 namespace camshit::effects {
 

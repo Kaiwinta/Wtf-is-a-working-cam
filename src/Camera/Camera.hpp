@@ -16,22 +16,24 @@ namespace camshit::camera {
             Camera(const std::string& device, int width, int height);
             ~Camera();
 
-            bool open_device();
-            bool init_device();
-            bool start_capturing();
-            bool capture_frame(unsigned char*& buffer, size_t& length);
-            void stop_capturing();
-            void close_device();
+            bool openDevice();
+            bool initDevice();
+            bool startCapturing();
+            bool captureFrame(unsigned char*& buffer, size_t& length);
+            void stopCapturing();
+            void closeDevice();
 
-            int get_width() const { return width; }
-            int get_height() const { return height; }
+            int getWidth() const { return width; }
+            int getHeight() const { return height; }
 
         private:
-            std::string device_path;
+            std::string cameraPath;
             int fd;
             int width;
             int height;
-
+            unsigned char* yuyvBuffer;
+            void convertYuyvToRGB(unsigned char* yuyv, unsigned char* rgb);
+    
             struct Buffer {
                 void* start;
                 size_t length;
