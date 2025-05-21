@@ -8,22 +8,32 @@
 #include "Parser.hpp"
 
 namespace camshit::parser {
-    Parser::Parser(const std::string& configFilePath) {
-        // Load the configuration file and parse it
-        // For now, we will just use a hardcoded example
-        // In a real implementation, you would read from the file
-        // and populate the effects vector based on the configuration
+    Parser::Parser(const std::string& configFilePath) : _configFilePath(configFilePath) {
+        _file = fopen(_configFilePath.c_str(), "r");
+        if (!_file) {
+            std::cerr << "Failed to open config file: " << _configFilePath << std::endl;
+            return;
+        }
     }
 
-    std::vector<std::shared_ptr<camshit::effects::IEffect>> Parser::parse() {
-        std::vector<std::shared_ptr<camshit::effects::IEffect>> effects;
+    void Parser::parse() {
+        char line[256];
 
-        // Example of adding effects based on the configuration
-        effects.push_back(std::make_shared<camshit::effects::reverse::vertical::Vertical>());
-        effects.push_back(std::make_shared<camshit::effects::reverse::horizontal::Horizontal>());
-        effects.push_back(std::make_shared<camshit::effects::color_scales::ColorScales>(126, 80, 128));
-        effects.push_back(std::make_shared<camshit::effects::random::middleDuplication::MiddleDuplication>());
-
-        return effects;
+        while (fgets(line, sizeof(line), _file)) {
+            std::string strLine(line);
+            size_t pos = strLine.find('|');
+            if (pos != std::string::npos) {
+                std::string key = strLine.substr(0, pos - 1);
+                std::string value = strLine.substr(pos + 2, strLine.length() - pos - 3);
+                auto effectIt = effectMap.find(value);
+                if (effectIt != effectMap.end()) {
+                    _effects.push_back(effectIt->second);
+                    auto keyIt = eventMap.find(key);
+                    if (keyIt != eventMap.end()) {
+                        _keyEffectMap[keyIt->second] = _effects.size() - 1;
+                    }
+                }
+            }
+        }
     }
 }

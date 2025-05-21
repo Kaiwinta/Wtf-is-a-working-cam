@@ -26,7 +26,9 @@ namespace camshit {
         initCamera();
         initVirtualCamera();
         initSdl();
-        _effects = parser.parse();
+        parser.parse();
+        _effects = parser.getEffects();
+        _keyEffectMap = parser.getKeyEffectMap();
     }
 
     void CamShit::initCamera() {
@@ -52,7 +54,16 @@ namespace camshit {
 
     void CamShit::run() {
         while (sdl.isRunning()) {
-            sdl.handleEvents();
+            std::vector<SDL_Keycode> sdlEvents = sdl.handleEvents();
+            for (const auto& event : sdlEvents) {
+                auto it = _keyEffectMap.find(event);
+                if (it != _keyEffectMap.end()) {
+                    size_t effectIndex = it->second;
+                    if (effectIndex < _effects.size()) {
+                        _effects[effectIndex]->toggle();
+                    }
+                }
+            }
             size_t frame_size;
             if (camera.captureFrame(_rgbFrameDatas, frame_size)) {
                 if (_displayBeforeEffect) {
@@ -69,6 +80,9 @@ namespace camshit {
 
     void CamShit::processFrame() {
         for (const auto& effect : _effects) {
+            if (!effect->isActive()) {
+                continue;
+            }
             effect->applyEffect(_rgbFrameDatas, _height, _width);
         }
     }

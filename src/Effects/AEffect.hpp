@@ -14,10 +14,13 @@ namespace camshit::effects {
 
     class AEffect : public IEffect {
     public:
-        AEffect() = default;
+        AEffect(): _isActive(false) {}
         virtual ~AEffect() = default;
         virtual void applyEffect(unsigned char* frame_data, size_t height, size_t width) override = 0;
-
+        virtual bool isActive() const override { return _isActive; }
+        virtual void toggle() override { _isActive = !_isActive; }
+    protected:
+        bool _isActive = false;
     };
 
 }

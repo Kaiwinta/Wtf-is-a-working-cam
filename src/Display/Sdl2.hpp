@@ -9,6 +9,7 @@
 
 #include <SDL2/SDL.h>
 #include <unordered_map>
+#include <vector>
 
 namespace camshit::display {
 
@@ -19,7 +20,7 @@ namespace camshit::display {
 
         void clear();
         bool isRunning() const { return _running; }
-        void handleEvents();
+        std::vector<SDL_Keycode> handleEvents();
         void updateFrame(unsigned char* buffer);
 
     private:
