@@ -9,6 +9,8 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
+#include <memory>
 
 #include "Camera.hpp"
 #include "VirtualCamera.hpp"
@@ -32,6 +34,7 @@ namespace camshit {
         private:
             int _width;
             int _height;
+            bool _displayBeforeEffect;
             unsigned char* _rgbFrameDatas;
             
             std::string _cameraPath;
@@ -39,6 +42,7 @@ namespace camshit {
             camera::Camera camera;
             virtual_camera::VirtualCamera virtualCamera;
             display::Sdl2 sdl;
+            std::vector<std::shared_ptr<effects::IEffect>>_effects;
             
             void initCamera();
             void initVirtualCamera();

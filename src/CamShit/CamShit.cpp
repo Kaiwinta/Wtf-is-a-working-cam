@@ -9,7 +9,7 @@
 
 namespace camshit {
     CamShit::CamShit(int width, int height, const std::string& cameraPath, const std::string& virtualCameraPath)
-        : _width(width), _height(height), _cameraPath(cameraPath), _virtualCameraPath(virtualCameraPath), _rgbFrameDatas(nullptr), 
+        : _width(width), _height(height), _displayBeforeEffect(true), _cameraPath(cameraPath), _virtualCameraPath(virtualCameraPath), _rgbFrameDatas(nullptr), 
             camera(cameraPath, width, height), virtualCamera(virtualCameraPath, width, height), sdl(width, height) {
         _rgbFrameDatas = new unsigned char[_width * _height * 3];
         if (!_rgbFrameDatas) {
@@ -26,6 +26,10 @@ namespace camshit {
         initCamera();
         initVirtualCamera();
         initSdl();
+        _effects.push_back(std::make_shared<effects::reverse::vertical::Vertical>());
+        _effects.push_back(std::make_shared<effects::reverse::horizontal::Horizontal>());
+        _effects.push_back(std::make_shared<effects::color_scales::ColorScales>(126, 80, 128));
+        _effects.push_back(std::make_shared<effects::random::middleDuplication::MiddleDuplication>());
     }
 
     void CamShit::initCamera() {
@@ -54,22 +58,21 @@ namespace camshit {
             sdl.handleEvents();
             size_t frame_size;
             if (camera.captureFrame(_rgbFrameDatas, frame_size)) {
+                if (_displayBeforeEffect) {
+                    sdl.updateFrame(_rgbFrameDatas);
+                }
                 processFrame();
                 virtualCamera.sendFrame(_rgbFrameDatas, frame_size);
-                sdl.updateFrame(_rgbFrameDatas);
+                if (!_displayBeforeEffect) {
+                    sdl.updateFrame(_rgbFrameDatas);
+                }
             }
         }
     }
 
     void CamShit::processFrame() {
-        camshit::effects::reverse::horizontal::Horizontal horizontal_effect;
-        camshit::effects::reverse::vertical::Vertical vertical_effect;
-        camshit::effects::color_scales::ColorScales color_effect(125, 125, 125, true);
-        camshit::effects::random::middleDuplication::MiddleDuplication middle_effect;
-
-        horizontal_effect.applyEffect(_rgbFrameDatas, _height, _width);
-        // vertical_effect.applyEffect(_rgbFrameDatas, _height, _width);
-        middle_effect.applyEffect(_rgbFrameDatas, _height, _width);
-        color_effect.applyEffect(_rgbFrameDatas, _height, _width);
+        for (const auto& effect : _effects) {
+            effect->applyEffect(_rgbFrameDatas, _height, _width);
+        }
     }
 }
