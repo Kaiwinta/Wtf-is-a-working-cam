@@ -30,7 +30,7 @@ jobs:
 
       - name: Check executable
         run: |
-          if [ -f CamShit ]; then
+          if [ -f camShit ]; then
             echo "Executable does exists"
           else
             echo "Executable does not exist"

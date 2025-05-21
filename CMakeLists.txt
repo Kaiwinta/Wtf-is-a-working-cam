@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(CamShit)
+project(camShit)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -18,7 +18,9 @@ include_directories(${SDL2_INCLUDE_DIRS})
 # Source files
 set(SOURCES
     src/Main.cpp
+    src/CamShit/CamShit.cpp
     src/Camera/Camera.cpp
+    src/VirtualCamera/VirtualCamera.cpp
     src/Display/Sdl2.cpp
 
     src/Effects/ColorScales/ColorScales.cpp
@@ -32,12 +34,14 @@ set(SOURCES
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -rdynamic")
 
-add_executable(CamShit ${SOURCES})
+add_executable(camShit ${SOURCES})
 
 # Include directories
-target_include_directories(CamShit PRIVATE
+target_include_directories(camShit PRIVATE
     ${PROJECT_SOURCE_DIR}/src/
     ${PROJECT_SOURCE_DIR}/src/Camera
+    ${PROJECT_SOURCE_DIR}/src/CamShit
+    ${PROJECT_SOURCE_DIR}/src/VirtualCamera
     ${PROJECT_SOURCE_DIR}/src/Display
     ${PROJECT_SOURCE_DIR}/src/Enum
     ${PROJECT_SOURCE_DIR}/src/Effects
@@ -51,6 +55,6 @@ target_include_directories(CamShit PRIVATE
 )
 
 # Link libraries
-target_link_libraries(CamShit
+target_link_libraries(camShit
     ${SDL2_LIBRARIES}
 )

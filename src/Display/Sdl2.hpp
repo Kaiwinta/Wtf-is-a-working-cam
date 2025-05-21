@@ -8,6 +8,7 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <unordered_map>
 
 namespace camshit::display {
 

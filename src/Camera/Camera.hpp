@@ -19,7 +19,7 @@ namespace camshit::camera {
             bool openDevice();
             bool initDevice();
             bool startCapturing();
-            bool captureFrame(unsigned char*& buffer, size_t& length);
+            bool captureFrame(unsigned char*& rgbBuffer, size_t& length);
             void stopCapturing();
             void closeDevice();
 

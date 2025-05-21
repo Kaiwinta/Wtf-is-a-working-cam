@@ -1,0 +1,63 @@
+/*
+** EPITECH PROJECT, 2025
+** Wtf-is-a-working-cam
+** File description:
+** Parser
+*/
+
+#pragma once
+
+#include <string> 
+#include <SDL2/SDL.h>
+#include <unordered_map>
+
+#include "ColorScales.hpp"
+#include "Horizontal.hpp"
+#include "Vertical.hpp"
+#include "MiddleDuplication.hpp"
+
+namespace camshit::parser {
+    class Parser {
+        public:
+            static void parse();
+        private:
+            const std::unordered_map<std::string, SDL_KeyCode> eventMap {
+                {"1", SDL_KeyCode::SDLK_1},
+                {"2", SDL_KeyCode::SDLK_2},
+                {"3", SDL_KeyCode::SDLK_3},
+                {"4", SDL_KeyCode::SDLK_4},
+                {"5", SDL_KeyCode::SDLK_5},
+                {"6", SDL_KeyCode::SDLK_6},
+                {"7", SDL_KeyCode::SDLK_7},
+                {"8", SDL_KeyCode::SDLK_8},
+                {"9", SDL_KeyCode::SDLK_9},
+                {"0", SDL_KeyCode::SDLK_0},
+                {"A", SDL_KeyCode::SDLK_a},
+                {"B", SDL_KeyCode::SDLK_b},
+                {"C", SDL_KeyCode::SDLK_c},
+                {"D", SDL_KeyCode::SDLK_d},
+                {"E", SDL_KeyCode::SDLK_e},
+                {"F", SDL_KeyCode::SDLK_f},
+                {"G", SDL_KeyCode::SDLK_g},
+                {"H", SDL_KeyCode::SDLK_h},
+                {"I", SDL_KeyCode::SDLK_i},
+                {"J", SDL_KeyCode::SDLK_j},
+                {"K", SDL_KeyCode::SDLK_k},
+                {"L", SDL_KeyCode::SDLK_l},
+                {"M", SDL_KeyCode::SDLK_m},
+                {"N", SDL_KeyCode::SDLK_n},
+                {"O", SDL_KeyCode::SDLK_o},
+                {"P", SDL_KeyCode::SDLK_p},
+                {"Q", SDL_KeyCode::SDLK_q},
+                {"R", SDL_KeyCode::SDLK_r},
+                {"S", SDL_KeyCode::SDLK_s},
+                {"T", SDL_KeyCode::SDLK_t},
+                {"U", SDL_KeyCode::SDLK_u},
+                {"V", SDL_KeyCode::SDLK_v},
+                {"W", SDL_KeyCode::SDLK_w},
+                {"X", SDL_KeyCode::SDLK_x},
+                {"Y", SDL_KeyCode::SDLK_y},
+                {"Z", SDL_KeyCode::SDLK_z}
+            };
+    };
+}
