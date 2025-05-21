@@ -8,9 +8,9 @@
 #include "CamShit.hpp"
 
 namespace camshit {
-    CamShit::CamShit(int width, int height, const std::string& cameraPath, const std::string& virtualCameraPath)
+    CamShit::CamShit(int width, int height, const std::string& cameraPath, const std::string& virtualCameraPath, const std::string& configFilePath)
         : _width(width), _height(height), _displayBeforeEffect(true), _cameraPath(cameraPath), _virtualCameraPath(virtualCameraPath), _rgbFrameDatas(nullptr), 
-            camera(cameraPath, width, height), virtualCamera(virtualCameraPath, width, height), sdl(width, height) {
+            camera(cameraPath, width, height), virtualCamera(virtualCameraPath, width, height), sdl(width, height), parser(configFilePath) {
         _rgbFrameDatas = new unsigned char[_width * _height * 3];
         if (!_rgbFrameDatas) {
             std::cerr << "Failed to allocate memory for RGB frame data" << std::endl;
@@ -26,10 +26,7 @@ namespace camshit {
         initCamera();
         initVirtualCamera();
         initSdl();
-        _effects.push_back(std::make_shared<effects::reverse::vertical::Vertical>());
-        _effects.push_back(std::make_shared<effects::reverse::horizontal::Horizontal>());
-        _effects.push_back(std::make_shared<effects::color_scales::ColorScales>(126, 80, 128));
-        _effects.push_back(std::make_shared<effects::random::middleDuplication::MiddleDuplication>());
+        _effects = parser.parse();
     }
 
     void CamShit::initCamera() {

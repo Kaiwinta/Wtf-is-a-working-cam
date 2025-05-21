@@ -9,6 +9,8 @@
 
 #include <string> 
 #include <SDL2/SDL.h>
+#include <memory>
+#include <vector>
 #include <unordered_map>
 
 #include "ColorScales.hpp"
@@ -19,7 +21,10 @@
 namespace camshit::parser {
     class Parser {
         public:
-            static void parse();
+            Parser(const std::string& configFilePath);
+            ~Parser() = default;
+
+            std::vector<std::shared_ptr<effects::IEffect>> parse();
         private:
             const std::unordered_map<std::string, SDL_KeyCode> eventMap {
                 {"1", SDL_KeyCode::SDLK_1},
@@ -59,5 +64,30 @@ namespace camshit::parser {
                 {"Y", SDL_KeyCode::SDLK_y},
                 {"Z", SDL_KeyCode::SDLK_z}
             };
+
+            std::vector<std::shared_ptr<camshit::effects::IEffect>> _effects;
+
+            const std::unordered_map<std::string, std::shared_ptr<camshit::effects::IEffect>> effectMap {
+                {"GrayScales", std::make_shared<camshit::effects::color_scales::ColorScales>()},
+                {"ColorScales", std::make_shared<camshit::effects::color_scales::ColorScales>(126, 80, 128)},
+                {"Disco", std::make_shared<camshit::effects::color_scales::ColorScales>(126, 80, 128, true)},
+                {"MiddleDuplication", std::make_shared<camshit::effects::random::middleDuplication::MiddleDuplication>()},
+                {"Vertical", std::make_shared<camshit::effects::reverse::vertical::Vertical>()},
+                {"Horizontal", std::make_shared<camshit::effects::reverse::horizontal::Horizontal>()}
+            };
+
+            std::unordered_map<SDL_Keycode, size_t> _keyEffectMap = {
+                {SDLK_0, 0},
+                {SDLK_1, 1},
+                {SDLK_2, 2},
+                {SDLK_3, 3},
+                {SDLK_4, 4},
+                {SDLK_5, 5},
+                {SDLK_6, 6},
+                {SDLK_7, 7},
+                {SDLK_8, 8},
+                {SDLK_9, 9}
+            };
+
     };
 }

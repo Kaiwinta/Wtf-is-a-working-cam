@@ -20,6 +20,7 @@ set(SOURCES
     src/Main.cpp
     src/CamShit/CamShit.cpp
     src/Camera/Camera.cpp
+    src/Parser/Parser.cpp
     src/VirtualCamera/VirtualCamera.cpp
     src/Display/Sdl2.cpp
 
@@ -40,6 +41,7 @@ add_executable(camShit ${SOURCES})
 target_include_directories(camShit PRIVATE
     ${PROJECT_SOURCE_DIR}/src/
     ${PROJECT_SOURCE_DIR}/src/Camera
+    ${PROJECT_SOURCE_DIR}/src/Parser
     ${PROJECT_SOURCE_DIR}/src/CamShit
     ${PROJECT_SOURCE_DIR}/src/VirtualCamera
     ${PROJECT_SOURCE_DIR}/src/Display
