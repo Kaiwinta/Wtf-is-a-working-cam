@@ -11,4 +11,6 @@ log.bin
 *.log
 
 #Executable
-CamShit
+*.exe
+a.out
+camShit

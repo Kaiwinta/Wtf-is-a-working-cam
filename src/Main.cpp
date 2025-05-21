@@ -1,11 +1,22 @@
 /*
 ** EPITECH PROJECT, 2025
-** DEFINE_NAME
+** Wtf-is-a-working-cam
 ** File description:
-** main
+** Main
 */
 
-int main(void)
-{
+#include "CamShit.hpp"
+
+int main() {
+    const std::string cameraPath = "/dev/video0";
+    const std::string virtualCameraPath = "/dev/video2";
+    const std::string configFilePath = ".key-config";
+    const int width = 1280;
+    const int height = 720;
+
+    camshit::CamShit myCam(width, height, cameraPath, virtualCameraPath, configFilePath);
+    myCam.init();
+    myCam.run();
+
     return 0;
 }

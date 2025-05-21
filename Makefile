@@ -1,6 +1,6 @@
 ##
 ## EPITECH PROJECT, 2024
-## CamShit
+## camShit
 ## File description:
 ## Makefile
 ##
@@ -8,7 +8,7 @@
 .SILENT:
 
 BUILD_DIR = build
-NAME = CamShit
+NAME = camShit
 
 all: $(NAME)
 
