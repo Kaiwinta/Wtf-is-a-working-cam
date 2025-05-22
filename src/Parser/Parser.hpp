@@ -18,6 +18,7 @@
 #include "ColorScales.hpp"
 #include "Horizontal.hpp"
 #include "Vertical.hpp"
+#include "Test.hpp"
 #include "MiddleDuplication.hpp"
 
 namespace camshit::parser {
@@ -85,7 +86,8 @@ namespace camshit::parser {
                 {"Disco", std::make_shared<camshit::effects::color_scales::ColorScales>(126, 80, 128, true)},
                 {"MiddleDuplication", std::make_shared<camshit::effects::random::middleDuplication::MiddleDuplication>()},
                 {"Vertical", std::make_shared<camshit::effects::reverse::vertical::Vertical>()},
-                {"Horizontal", std::make_shared<camshit::effects::reverse::horizontal::Horizontal>()}
+                {"Horizontal", std::make_shared<camshit::effects::reverse::horizontal::Horizontal>()},
+                {"Test", std::make_shared<camshit::effects::random::test::Test>()}
             };
 
             std::unordered_map<SDL_Keycode, size_t> _keyEffectMap;
