@@ -23,7 +23,7 @@ namespace camshit::virtual_camera {
     }
 
     bool VirtualCamera::openDevice() {
-        fd = open(cameraPath.c_str(), O_WRONLY);
+        fd = open(cameraPath.c_str(), O_RDWR);
         return fd != -1;
     }
 
@@ -42,6 +42,10 @@ namespace camshit::virtual_camera {
             perror("VIDIOC_S_FMT");
             return false;
         }
+        if (fmt.fmt.pix.pixelformat != V4L2_PIX_FMT_YUYV) {
+            fprintf(stderr, "Warning: device does not support YUYV, got format 0x%08x\n", fmt.fmt.pix.pixelformat);
+            return false;
+        }
         return true;
     }
 
@@ -53,12 +57,33 @@ namespace camshit::virtual_camera {
     }
 
     void VirtualCamera::sendFrame(unsigned char* rgbBuffer, size_t length) {
-        rgb24_to_yuyv(rgbBuffer, yuyvBuffer);
-        if (write(fd, yuyvBuffer, length) < 0) {
-            perror("write failed");
+        size_t expectedLength = width * height * 3;
+        if (length != expectedLength) {
+            fprintf(stderr, "Error: Expected RGB buffer length %zu, got %zu\n", expectedLength, length);
+            return;
         }
-        usleep(1000000 / 30); // 30 FPS
+
+        rgb24_to_yuyv(rgbBuffer, yuyvBuffer);
+
+        size_t totalBytes = width * height * 2;
+        fprintf(stderr, "Sending YUYV frame: %zu bytes for resolution %dx%d\n", totalBytes, width, height);
+
+        size_t totalWritten = 0;
+        while (totalWritten < totalBytes) {
+            ssize_t written = write(fd, yuyvBuffer + totalWritten, totalBytes - totalWritten);
+            if (written < 0) {
+                perror("write failed");
+                return;
+            }
+            totalWritten += written;
+            if (written == 0) {
+                fprintf(stderr, "write returned 0 bytes written, stopping to avoid infinite loop\n");
+                return;
+            }
+        }
+        usleep(1000000 / 30); // maintain 30 FPS
     }
+
 
     void VirtualCamera::rgb24_to_yuyv(unsigned char* rgb, unsigned char* yuyv) {
         for (int i = 0; i < width * height; i += 2) {

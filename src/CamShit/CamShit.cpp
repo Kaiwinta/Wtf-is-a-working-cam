@@ -6,6 +6,7 @@
 */
 
 #include "CamShit.hpp"
+#include <unistd.h>
 
 namespace camshit {
     CamShit::CamShit(int width, int height, const std::string& cameraPath, const std::string& virtualCameraPath, const std::string& configFilePath)
@@ -32,27 +33,34 @@ namespace camshit {
     }
 
     void CamShit::initCamera() {
-        if (!camera.openDevice() || !camera.initDevice() || !camera.startCapturing()) {
-            std::cerr << "Failed to initialize camera" << std::endl;
-            return;
+        if (!camera.isOpen() and !camera.openDevice()) {
+            throw std::runtime_error("Failed to open camera device");
+        }
+        if (!camera.isInitialized() and !camera.initDevice()) {
+            throw std::runtime_error("Failed to initialize camera device");
+        }
+        if (!camera.startCapturing()) {
+            throw std::runtime_error("Failed to start capturing from camera");
         }
     }
 
     void CamShit::initVirtualCamera() {
-        if (!virtualCamera.openDevice() || !virtualCamera.initDevice()) {
-            std::cerr << "Failed to initialize virtual camera" << std::endl;
-            return;
+        if (!virtualCamera.isOpen() && !virtualCamera.openDevice()) {
+            throw std::runtime_error("Failed to open virtual camera device");
+        }
+        if (!virtualCamera.isInitialized() && !virtualCamera.initDevice()) {
+            throw std::runtime_error("Failed to initialize virtual camera device");
         }
     }
 
     void CamShit::initSdl() {
         if (!sdl.isRunning()) {
-            std::cerr << "Failed to initialize SDL" << std::endl;
-            return;
+            throw std::runtime_error("Failed to initialize SDL");
         }
     }
 
     void CamShit::run() {
+        _displayBeforeEffect = false;
         while (sdl.isRunning()) {
             std::vector<SDL_Keycode> sdlEvents = sdl.handleEvents();
             for (const auto& event : sdlEvents) {
