@@ -91,7 +91,7 @@ namespace camshit::camera {
 
         yuyvBuffer = static_cast<unsigned char*>(buffers[buf.index].start);
         convertYuyvToRGB(yuyvBuffer, rgbBuffer);
-        out_len = width * height * 3;
+        out_len = buf.bytesused;
 
         ioctl(fd, VIDIOC_QBUF, &buf);
         return true;

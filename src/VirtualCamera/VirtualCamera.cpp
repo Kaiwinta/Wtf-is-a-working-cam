@@ -57,30 +57,10 @@ namespace camshit::virtual_camera {
     }
 
     void VirtualCamera::sendFrame(unsigned char* rgbBuffer, size_t length) {
-        size_t expectedLength = width * height * 3;
-        if (length != expectedLength) {
-            fprintf(stderr, "Error: Expected RGB buffer length %zu, got %zu\n", expectedLength, length);
-            return;
-        }
-
         rgb24_to_yuyv(rgbBuffer, yuyvBuffer);
-
-        size_t totalBytes = width * height * 2;
-        fprintf(stderr, "Sending YUYV frame: %zu bytes for resolution %dx%d\n", totalBytes, width, height);
-
-        size_t totalWritten = 0;
-        while (totalWritten < totalBytes) {
-            ssize_t written = write(fd, yuyvBuffer + totalWritten, totalBytes - totalWritten);
-            if (written < 0) {
-                perror("write failed");
-                return;
-            }
-            totalWritten += written;
-            if (written == 0) {
-                fprintf(stderr, "write returned 0 bytes written, stopping to avoid infinite loop\n");
-                return;
-            }
-        }
+        
+        if (write(fd, yuyvBuffer, length) < 0)
+            perror("write failed");
         usleep(1000000 / 30); // maintain 30 FPS
     }
 
