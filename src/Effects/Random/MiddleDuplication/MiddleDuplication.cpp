@@ -17,8 +17,15 @@ namespace camshit::effects::random::middleDuplication {
                 size_t left_index = (i * width + j) * 3;
                 size_t right_index = (i * width + (width - 1 - j)) * 3;
 
-                std::swap(frame_data[left_index], frame_data[right_index]);
-                std::swap(frame_data[left_index + 1], frame_data[right_index - 1]);
+                if (_config.switchRed) {
+                    std::swap(frame_data[left_index], frame_data[right_index]);
+                }
+                if (_config.switchGreen) {
+                    std::swap(frame_data[left_index + 1], frame_data[right_index + 1]);
+                }
+                if (_config.switchBlue) {
+                    std::swap(frame_data[left_index + 2], frame_data[right_index + 2]);
+                }
             }
         }
     }

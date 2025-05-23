@@ -1,7 +1,10 @@
 D | Disco
-C | ColorScales
+C | ColorScales         | red:"123" green:"12" blue:"12"
 G | GrayScales
-M | MiddleDuplication
+M | MiddleDuplication   | green red
+L | MiddleDuplication   | red blue
+O | MiddleDuplication   | green blue
 V | Vertical
 H | Horizontal
+F | FlyEffect           | frequency:"5"
 T | Test

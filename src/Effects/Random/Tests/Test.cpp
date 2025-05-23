@@ -14,6 +14,12 @@ namespace camshit::effects::random::test {
     void Test::applyEffect(unsigned char* frame_data, size_t height, size_t width) {
         _rectHeightCount = 10;
         _rectWidthCount = 10;
+        while (width % _rectWidthCount != 0) {
+            _rectWidthCount--;
+        }
+        while (height % _rectHeightCount != 0) {
+            _rectHeightCount--;
+        }
         _rectCount = _rectHeightCount * _rectWidthCount;
         _rectWidth = width / _rectWidthCount;
         _rectHeight = height / _rectHeightCount;

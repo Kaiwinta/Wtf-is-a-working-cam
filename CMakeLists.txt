@@ -27,6 +27,7 @@ set(SOURCES
     src/Effects/ColorScales/ColorScales.cpp
 
     src/Effects/Random/MiddleDuplication/MiddleDuplication.cpp
+    src/Effects/Random/FlyEffect/FlyEffect.cpp
     src/Effects/Random/Tests/Test.cpp
 
     src/Effects/Reverse/Reverse.cpp
@@ -51,6 +52,7 @@ target_include_directories(camShit PRIVATE
     ${PROJECT_SOURCE_DIR}/src/Effects/Reverse
     ${PROJECT_SOURCE_DIR}/src/Effects/Random
     ${PROJECT_SOURCE_DIR}/src/Effects/Random/MiddleDuplication
+    ${PROJECT_SOURCE_DIR}/src/Effects/Random/FlyEffect
     ${PROJECT_SOURCE_DIR}/src/Effects/Random/Tests
     ${PROJECT_SOURCE_DIR}/src/Effects/ColorScales
     ${PROJECT_SOURCE_DIR}/src/Effects/Reverse/Vertical
