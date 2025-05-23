@@ -27,3 +27,7 @@ All the camera Part could be done using  OpenCv but if I feel confident enough I
 The point of this part is to be able to create a virtual Camera which will use the stream taht my programm send in order to be able to use my modified camera as one On call like Teams or discord
 
 To create this I may need to setup a vCamera using `v4l2loopback`
+
+# Base the Camera and programm resolution on the
+
+`v4l2-ctl -d /dev/video0 --list-formats-ext`
