@@ -7,6 +7,7 @@
 
 #include "CamShit.hpp"
 #include <unistd.h>
+#include <algorithm>
 
 namespace camshit {
     CamShit::CamShit(int width, int height, const std::string& cameraPath, const std::string& virtualCameraPath, const std::string& configFilePath)
@@ -69,6 +70,12 @@ namespace camshit {
                     size_t effectIndex = it->second;
                     if (effectIndex < _effects.size()) {
                         _effects[effectIndex]->toggle();
+                        if (std::find(_effectOrder.begin(), _effectOrder.end(), effectIndex) != _effectOrder.end()) {
+                            _effectOrder.erase(std::remove(_effectOrder.begin(), _effectOrder.end(), effectIndex), _effectOrder.end());
+                        }
+                        if (_effects[effectIndex]->isActive()) {
+                            _effectOrder.push_back(effectIndex);
+                        }
                     }
                 }
             }
@@ -87,7 +94,11 @@ namespace camshit {
     }
 
     void CamShit::processFrame() {
-        for (const auto& effect : _effects) {
+        for (const size_t& effectIndex : _effectOrder) {
+            if (effectIndex >= _effects.size()) {
+                continue;
+            }
+            auto& effect = _effects[effectIndex];
             if (!effect->isActive()) {
                 continue;
             }
