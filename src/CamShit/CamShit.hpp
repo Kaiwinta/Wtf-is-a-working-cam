@@ -41,6 +41,7 @@ namespace camshit {
             virtual_camera::VirtualCamera virtualCamera;
             display::Sdl2 sdl;
             std::vector<std::shared_ptr<effects::IEffect>> _effects;
+            std::vector<size_t> _effectOrder;
             std::unordered_map<SDL_Keycode, size_t> _keyEffectMap;
             void initCamera();
             void initVirtualCamera();

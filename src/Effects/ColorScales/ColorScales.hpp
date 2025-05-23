@@ -8,20 +8,19 @@
 #pragma once
 
 #include "AEffect.hpp"
+#include "ColorScalesConfig.hpp"
 
 #include <array>
 
 namespace camshit::effects::color_scales {
-
     class ColorScales : public AEffect {
         public:
-            ColorScales(size_t red = 125, size_t green = 125, size_t blue = 125, bool disco = false)
-                : _colors{red, green, blue}, _disco(disco) {}
+            ColorScales(int red, int green, int blue, bool disco = false) : AEffect(), _config(red, green, blue, disco) {}
+            ColorScales(std::string params) : AEffect(), _config(params) {}
             ~ColorScales() = default;
 
             void applyEffect(unsigned char* frame_data, size_t height, size_t width);
         private:
-            std::array<size_t, 3> _colors;
-            bool _disco = false;
+            ColorScalesConfig _config;
     };
 }

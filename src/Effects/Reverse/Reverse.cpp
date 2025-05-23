@@ -11,7 +11,7 @@
 
 namespace camshit::effects::reverse {
     void Reverse::applyEffect(unsigned char* frame_data, size_t height, size_t width) {
-        switch(_plan) {
+        switch(_config.plan) {
             case camEnum::EnumPlan::HORIZONTAL:
                 horizontal_effect.applyEffect(frame_data, height, width);
                 break;

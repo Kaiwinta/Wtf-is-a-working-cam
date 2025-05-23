@@ -23,7 +23,7 @@ namespace camshit::virtual_camera {
     }
 
     bool VirtualCamera::openDevice() {
-        fd = open(cameraPath.c_str(), O_WRONLY);
+        fd = open(cameraPath.c_str(), O_RDWR);
         return fd != -1;
     }
 
@@ -42,6 +42,10 @@ namespace camshit::virtual_camera {
             perror("VIDIOC_S_FMT");
             return false;
         }
+        if (fmt.fmt.pix.pixelformat != V4L2_PIX_FMT_YUYV) {
+            fprintf(stderr, "Warning: device does not support YUYV, got format 0x%08x\n", fmt.fmt.pix.pixelformat);
+            return false;
+        }
         return true;
     }
 
@@ -54,11 +58,12 @@ namespace camshit::virtual_camera {
 
     void VirtualCamera::sendFrame(unsigned char* rgbBuffer, size_t length) {
         rgb24_to_yuyv(rgbBuffer, yuyvBuffer);
-        if (write(fd, yuyvBuffer, length) < 0) {
+        
+        if (write(fd, yuyvBuffer, length) < 0)
             perror("write failed");
-        }
-        usleep(1000000 / 30); // 30 FPS
+        usleep(1000000 / 30); // maintain 30 FPS
     }
+
 
     void VirtualCamera::rgb24_to_yuyv(unsigned char* rgb, unsigned char* yuyv) {
         for (int i = 0; i < width * height; i += 2) {
