@@ -1,5 +1,5 @@
 D | Disco
-C | ColorScales         | red:"123" green:"12" blue:"12"
+C | ColorScales         | red:"100" green:"170" blue:"70"
 G | GrayScales
 M | MiddleDuplication   | green red
 L | MiddleDuplication   | red blue
