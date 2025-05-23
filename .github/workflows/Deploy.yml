@@ -1,9 +1,6 @@
 name: Deploy Shared Library and Executable
 
 on:
-  push:
-    branches:
-      - deploy
   workflow_run:
     workflows: ["Merge Dev to Main and Deploy Branches"]
     types:
@@ -13,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker
-
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
