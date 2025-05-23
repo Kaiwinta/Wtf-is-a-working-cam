@@ -27,7 +27,6 @@ namespace camshit::camera {
             int getHeight() const { return height; }
 
             bool isOpen() const { return fd != -1; }
-            bool isInitialized() const { return buffers != nullptr; }
 
         private:
             std::string cameraPath;

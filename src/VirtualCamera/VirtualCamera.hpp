@@ -21,7 +21,6 @@ namespace camshit::virtual_camera {
             void sendFrame(unsigned char* rgbBuffer, size_t length);
             void closeDevice();
             bool isOpen() const { return fd != -1; }
-            bool isInitialized() const { return yuyvBuffer != nullptr; }
 
         private:
             std::string cameraPath;
