@@ -12,5 +12,4 @@ In order to setup the Virtual Camera you need to run this command
 
 This programm may contain some flashing light effects, use it at your own risks
 
-
-![Video](Result.gif)
+![Video](Example.gif)
