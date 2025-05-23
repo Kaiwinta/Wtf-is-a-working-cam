@@ -37,7 +37,7 @@ namespace camshit {
         if (!camera.isOpen() and !camera.openDevice()) {
             throw std::runtime_error("Failed to open camera device");
         }
-        if (!camera.isInitialized() and !camera.initDevice()) {
+        if (!camera.initDevice()) {
             throw std::runtime_error("Failed to initialize camera device");
         }
         if (!camera.startCapturing()) {
@@ -49,7 +49,7 @@ namespace camshit {
         if (!virtualCamera.isOpen() && !virtualCamera.openDevice()) {
             throw std::runtime_error("Failed to open virtual camera device");
         }
-        if (!virtualCamera.isInitialized() && !virtualCamera.initDevice()) {
+        if (!virtualCamera.initDevice()) {
             throw std::runtime_error("Failed to initialize virtual camera device");
         }
     }
