@@ -9,35 +9,24 @@
 #include <iostream>
 #include <string>
 
+#include "ParamUtils.hpp"
+
 namespace camshit::effects::color_scales {
     class ColorScalesConfig {
     public:
         ColorScalesConfig(int red, int green, int blue, bool disco = false)
             : red(red), green(green), blue(blue), disco(disco) {}
         ColorScalesConfig(std::string params) {
-            size_t pos = params.find("red:\"");
-            if (pos != std::string::npos) {
-                size_t endPos = params.find("\"", pos + 5);
-                if (endPos != std::string::npos) {
-                    red = std::stoi(params.substr(pos + 5, endPos - pos - 5));
-                }   
-            }
-            pos = params.find("green:\"");
-            if (pos != std::string::npos) {
-                size_t endPos = params.find("\"", pos + 7);
-                if (endPos != std::string::npos) {
-                    green = std::stoi(params.substr(pos + 7, endPos - pos - 7));
-                }
-            }
-            pos = params.find("blue:\"");
-            if (pos != std::string::npos) {
-                size_t endPos = params.find("\"", pos + 6);
-                if (endPos != std::string::npos) {
-                    blue = std::stoi(params.substr(pos + 6, endPos - pos - 6));
-                }
-            }
-            pos = params.find("disco");
-            if (pos != std::string::npos) {
+            red = parser::utils::ParamUtils::getParamValueOrDefault<int>(params, "red", 125, [](const std::string& str) {
+                return std::stoi(str);
+            });
+            green = parser::utils::ParamUtils::getParamValueOrDefault<int>(params, "green", 125, [](const std::string& str) {
+                return std::stoi(str);
+            });
+            blue = parser::utils::ParamUtils::getParamValueOrDefault<int>(params, "blue", 125, [](const std::string& str) {
+                return std::stoi(str);
+            });
+            if (params.find("disco") != std::string::npos) {
                 disco = true;
             }
         }

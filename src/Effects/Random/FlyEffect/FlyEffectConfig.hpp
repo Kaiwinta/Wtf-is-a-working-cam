@@ -10,19 +10,16 @@
 #include <string>
 #include <iostream>
 
+#include "ParamUtils.hpp"
+
 namespace camshit::effects::random::flyEffect {
     class FlyEffectConfig {
     public:
         FlyEffectConfig(unsigned int frequency) : frequency(frequency) {}
         FlyEffectConfig(std::string params) {
-            size_t pos = params.find("frequency:\"");
-            if (pos != std::string::npos) {
-                size_t endPos = params.find("\"", pos + 11);
-                if (endPos != std::string::npos) {
-                    std::string frequencyStr = params.substr(pos + 11, endPos - pos - 11);
-                    frequency = std::stoi(frequencyStr);
-                }
-            }
+            frequency = parser::utils::ParamUtils::getParamValueOrDefault<unsigned int>(params, "frequency", 1, [](const std::string& str) {
+                return std::stoi(str);
+            });
         }
         ~FlyEffectConfig() = default;
 

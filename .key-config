@@ -6,5 +6,7 @@ L | MiddleDuplication   | red blue
 O | MiddleDuplication   | green blue
 V | Vertical
 H | Horizontal
-F | FlyEffect           | frequency:"5"
+F | FlyEffect           | frequency:"5" # this means that 1 / 5 of the screen will be filled with the effect
+S | SquareSplit         | height:"50" width:"50"
+Y | SquareSplit         | height:"1" width:"50" #Slice the screen into 50 columns
 T | Test
