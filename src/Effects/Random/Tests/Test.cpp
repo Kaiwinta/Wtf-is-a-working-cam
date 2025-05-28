@@ -10,39 +10,55 @@
 #include <cstring>
 #include <algorithm>
 
-#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
 namespace camshit::effects::random::test {
     Test::Test() : AEffect() {
-        int channels;
-        unsigned char* data = stbi_load(path.c_str(), &width, &height, &channels, 3);
+        // int desiredChannels = 0;
+        // unsigned char* data = stbi_load(path.c_str(), &imgWidth, &imgHeight, &channels, desiredChannels);
 
-        if (!data) {
-            std::cerr << "Failed to load image: " << path << "\n";
-        }
+        // if (!data) {
+        //     std::cerr << "Failed to load image: " << path << std::endl;
+        //     return;
+        // }
+        // if (channels < 3) {
+        //     std::cerr << "Image does not have enough channels: " << path << std::endl;
+        //     stbi_image_free(data);
+        //     return;
+        // }
 
-        size_t size = width * height * 3;
-        rgb_data.assign(data, data + size);
-        stbi_image_free(data);
-        loaded = true;
-        std::cout << "Loaded image: " << path << " with size: " << width << "x" << height << "\n";
-        std::cout << "Image data size: " << rgb_data.size() << "\n";
+        // size_t size = imgWidth * imgHeight * channels;
+        // rgb_data.assign(data, data + size);
+        // stbi_image_free(data);
+        // std::cout << "Loaded image: " << path << " with size: " << imgWidth << "x" << imgHeight << " and channels: " << channels << std::endl;
+        // loaded = true;
     }
 
     void Test::applyEffect(unsigned char* frame_data, size_t height, size_t width) {
-        if (!loaded || !frame_data)
-            return;
-        size_t row_size = width * 3;
-        for (size_t i = xOffset ; i < height; i++) {
-            for (size_t j = yOffset * 3; j < row_size; j += 3) {
-                std::cout << "Processing pixel at (" << i << ", " << j << ")\n";
-                size_t image_x = std::min(i - xOffset, height - 1);
-                size_t image_y = std::min((j - yOffset * 3) / 3, width - 1);
-                frame_data[i * row_size + j] = rgb_data[image_x * row_size + (image_y * 3)];
-                frame_data[i * row_size + j + 1] = rgb_data[image_x * row_size + (image_y * 3) + 1];
-                frame_data[i * row_size + j + 2] = rgb_data[image_x * row_size + (image_y * 3) + 2];
-            }
-        }
+        // if (!loaded || !frame_data)
+        //     return;
+
+        // const size_t frameRowSize = width * 3;
+        // const size_t imageRowSize = imgWidth * channels;
+
+        // for (size_t i = xOffset; i < height; ++i) {
+        //     for (size_t j = yOffset; j < width; ++j) {
+
+        //         size_t image_x = i - xOffset;
+        //         size_t image_y = j - yOffset;
+
+        //         if (image_x >= imgHeight || image_y >= imgWidth)
+        //             continue;
+
+        //         size_t frame_index = i * frameRowSize + j * 3;
+        //         size_t image_index = image_x * imageRowSize + image_y * channels;
+
+        //         if (channels == 4 && rgb_data[image_index + 3] <= 10)
+        //             continue;
+        //         frame_data[frame_index + 0] = rgb_data[image_index + 0];
+        //         frame_data[frame_index + 1] = rgb_data[image_index + 1];
+        //         frame_data[frame_index + 2] = rgb_data[image_index + 2];
+        //     }
+        // }
     }
 }

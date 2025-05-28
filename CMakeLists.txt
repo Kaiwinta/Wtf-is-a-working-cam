@@ -37,6 +37,8 @@ set(SOURCES
     src/Effects/Reverse/Reverse.cpp
     src/Effects/Reverse/Vertical/Vertical.cpp
     src/Effects/Reverse/Horizontal/Horizontal.cpp
+
+    src/Effects/Texture/Image/Image.cpp
 )
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -rdynamic")
@@ -63,6 +65,7 @@ target_include_directories(camShit PRIVATE
     ${PROJECT_SOURCE_DIR}/src/Effects/ColorScales
     ${PROJECT_SOURCE_DIR}/src/Effects/Reverse/Vertical
     ${PROJECT_SOURCE_DIR}/src/Effects/Reverse/Horizontal
+    ${PROJECT_SOURCE_DIR}/src/Effects/Texture/Image
 
     $(PROJECT_SOURCE_DIR)/stb/stb_image
 

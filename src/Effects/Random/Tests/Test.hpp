@@ -19,8 +19,9 @@ namespace camshit::effects::random::test {
             void applyEffect(unsigned char* frame_data, size_t height, size_t width) override;
         private:
             const std::string path = "test.png";
-            int width = 0;
-            int height = 0;
+            int channels = 0;
+            int imgWidth = 0;
+            int imgHeight = 0;
             bool loaded = false;
             size_t xOffset = 0;
             size_t yOffset = 0;
