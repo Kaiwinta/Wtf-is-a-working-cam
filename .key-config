@@ -1,3 +1,4 @@
+T | Test
 D | Disco
 C | ColorScales         | red:"100" green:"170" blue:"70"
 G | GrayScales
@@ -9,4 +10,4 @@ H | Horizontal
 F | FlyEffect           | frequency:"5" # this means that 1 / 5 of the screen will be filled with the effect
 S | SquareSplit         | height:"50" width:"50"
 Y | SquareSplit         | height:"1" width:"50" #Slice the screen into 50 columns
-T | Test
+P | Image               | path:"./test.png" x:"150" y:"150" #Give the path to the image and the position where it should be drawn

@@ -23,6 +23,7 @@
 #include "FlyEffect.hpp"
 #include "MiddleDuplication.hpp"
 #include "SquareSplit.hpp"
+#include "Image.hpp"
 
 namespace camshit::parser {
     class Parser {
@@ -95,6 +96,7 @@ namespace camshit::parser {
                 {"Horizontal", [](const std::string& data) { return std::make_unique<camshit::effects::reverse::horizontal::Horizontal>(); }},
                 {"FlyEffect", [](const std::string& data) { return std::make_unique<camshit::effects::random::flyEffect::FlyEffect>(data); }},
                 {"SquareSplit", [](const std::string& data) { return std::make_unique<camshit::effects::random::squareSplit::SquareSplit>(data); }},
+                {"Image", [](const std::string& data) { return std::make_unique<camshit::effects::texture::image::Image>(data); }},
                 {"Test", [](const std::string& data) { return std::make_unique<camshit::effects::random::test::Test>(); }}
             };
 
