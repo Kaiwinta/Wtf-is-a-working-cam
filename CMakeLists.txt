@@ -39,6 +39,8 @@ set(SOURCES
     src/Effects/Reverse/Horizontal/Horizontal.cpp
 
     src/Effects/Texture/Image/Image.cpp
+
+    dependencies/gifdec/gifdec.c
 )
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -rdynamic")
@@ -67,7 +69,8 @@ target_include_directories(camShit PRIVATE
     ${PROJECT_SOURCE_DIR}/src/Effects/Reverse/Horizontal
     ${PROJECT_SOURCE_DIR}/src/Effects/Texture/Image
 
-    $(PROJECT_SOURCE_DIR)/stb/stb_image
+    $(PROJECT_SOURCE_DIR)/dependencies/stb/stb_image
+    $(PROJECT_SOURCE_DIR)/dependencies/gifdec
 
 )
 

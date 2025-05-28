@@ -9,6 +9,11 @@
 
 #include "AEffect.hpp"
 #include "ImageConfig.hpp"
+#include "gifdec.h"
+
+#include <vector>
+#include <string>
+#include <iostream>
 
 namespace camshit::effects::texture::image{
 
@@ -22,12 +27,18 @@ namespace camshit::effects::texture::image{
             void applyEffect(unsigned char* frame_data, size_t height, size_t width) override;
         private:
             void buildEffect();
+            void loadImage();
+            void loadGif();
+            void applyEffectGif(unsigned char* frame_data, size_t height, size_t width);
+            void applyEffectImage(unsigned char* frame_data, size_t height, size_t width);
 
             int channels = 0;
             int imgWidth = 0;
             int imgHeight = 0;
             bool loaded = false;
+            bool isGif = false;
             ImageConfig _config;
+            std::vector<std::vector<uint8_t>> gif_frames;
             std::vector<unsigned char> rgb_data;
     };
 }
