@@ -64,6 +64,8 @@ target_include_directories(camShit PRIVATE
     ${PROJECT_SOURCE_DIR}/src/Effects/Reverse/Vertical
     ${PROJECT_SOURCE_DIR}/src/Effects/Reverse/Horizontal
 
+    $(PROJECT_SOURCE_DIR)/stb/stb_image
+
 )
 
 # Link libraries

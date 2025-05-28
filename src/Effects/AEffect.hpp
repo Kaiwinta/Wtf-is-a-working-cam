@@ -10,6 +10,10 @@
 #include "IEffect.hpp"
 #include "EnumPlan.hpp"
 
+#include <vector>
+#include <string>
+#include <iostream>
+
 namespace camshit::effects {
 
     class AEffect : public IEffect {
