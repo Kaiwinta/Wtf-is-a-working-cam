@@ -64,21 +64,7 @@ namespace camshit {
         _displayBeforeEffect = false;
         while (sdl.isRunning()) {
             std::vector<SDL_Keycode> sdlEvents = sdl.handleEvents();
-            for (const auto& event : sdlEvents) {
-                auto it = _keyEffectMap.find(event);
-                if (it != _keyEffectMap.end()) {
-                    size_t effectIndex = it->second;
-                    if (effectIndex < _effects.size()) {
-                        _effects[effectIndex]->toggle();
-                        if (std::find(_effectOrder.begin(), _effectOrder.end(), effectIndex) != _effectOrder.end()) {
-                            _effectOrder.erase(std::remove(_effectOrder.begin(), _effectOrder.end(), effectIndex), _effectOrder.end());
-                        }
-                        if (_effects[effectIndex]->isActive()) {
-                            _effectOrder.push_back(effectIndex);
-                        }
-                    }
-                }
-            }
+            handleEvents(sdlEvents);
             size_t frame_size;
             if (camera.captureFrame(_rgbFrameDatas, frame_size)) {
                 if (_displayBeforeEffect) {
@@ -93,16 +79,37 @@ namespace camshit {
         }
     }
 
+    void CamShit::handleEvents(std::vector<SDL_Keycode>& events) {
+        for (const auto& event : events) {
+            auto it = _keyEffectMap.find(event);
+            if (it != _keyEffectMap.end()) {
+                size_t effectIndex = it->second;
+                if (effectIndex < _effects.size()) {
+                    if (std::find(_effectOrder.begin(), _effectOrder.end(), effectIndex) != _effectOrder.end()) {
+                        _effectOrder.erase(std::remove(_effectOrder.begin(), _effectOrder.end(), effectIndex), _effectOrder.end());
+                    }
+                    for (const std::shared_ptr<effects::IEffect>& effect : _effects[effectIndex]) {
+                        effect->toggle();
+                        if (effect->isActive() && (_effectOrder.size() == 0 || _effectOrder.back() != effectIndex)) {
+                            _effectOrder.push_back(effectIndex);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     void CamShit::processFrame() {
         for (const size_t& effectIndex : _effectOrder) {
             if (effectIndex >= _effects.size()) {
                 continue;
             }
-            auto& effect = _effects[effectIndex];
-            if (!effect->isActive()) {
-                continue;
+            for (const std::shared_ptr<effects::IEffect>& effect : _effects[effectIndex]) {
+                if (!effect->isActive()) {
+                    continue;
+                }
+                effect->applyEffect(_rgbFrameDatas, _height, _width);
             }
-            effect->applyEffect(_rgbFrameDatas, _height, _width);
         }
     }
 }
