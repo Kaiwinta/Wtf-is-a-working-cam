@@ -1,8 +1,8 @@
+# IGNORE
 # Build files
 build/
 *.o
 
-# VS Code
 .vscode/
 
 # Debug files
@@ -14,3 +14,6 @@ log.bin
 *.exe
 a.out
 camShit
+
+# ALLOW
+!.vscode/tasks.json
