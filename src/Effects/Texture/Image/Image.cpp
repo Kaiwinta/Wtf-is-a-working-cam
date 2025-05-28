@@ -31,7 +31,6 @@ namespace camshit::effects::texture::image {
         size_t size = imgWidth * imgHeight * channels;
         rgb_data.assign(data, data + size);
         stbi_image_free(data);
-        std::cout << "Loaded image: " << _config.path << " with size: " << imgWidth << "x" << imgHeight << " and channels: " << channels << std::endl;
         loaded = true;
     }
 
