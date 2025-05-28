@@ -40,12 +40,13 @@ namespace camshit {
             parser::Parser parser;
             virtual_camera::VirtualCamera virtualCamera;
             display::Sdl2 sdl;
-            std::vector<std::shared_ptr<effects::IEffect>> _effects;
+            std::vector<std::vector<std::shared_ptr<effects::IEffect>>> _effects;
             std::vector<size_t> _effectOrder;
             std::unordered_map<SDL_Keycode, size_t> _keyEffectMap;
             void initCamera();
             void initVirtualCamera();
             void initSdl();
             void processFrame();
+            void handleEvents(std::vector<SDL_Keycode>& events);
     };
 }
