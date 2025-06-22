@@ -28,11 +28,15 @@ namespace camshit::effects::texture::image {
             path = parser::utils::ParamUtils::getParamValueOrDefault<std::string>(params, "path", "", [](const std::string& str) {
                 return str;
             });
+            gifFrameDelay = parser::utils::ParamUtils::getParamValueOrDefault<int>(params, "frameDelay", 0, [](const std::string& str) {
+                return std::stoi(str);
+            });
         }
         ~ImageConfig() = default;
 
         int xOffset = 0;
         int yOffset = 0;
-        std::string path;        
+        int gifFrameDelay = 0;
+        std::string path;
     };
 }

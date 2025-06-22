@@ -44,8 +44,8 @@ namespace camshit::parser {
             FILE* _file;
             std::string cleanLine(std::string line);
             std::string cleanSpaces(std::string line);
-            void addEffect(std::function<std::unique_ptr<camshit::effects::IEffect>(const std::string&)> createEffect, const SDL_Keycode keyCode, const std::string& params);
-    
+            void addEffect(std::function<std::shared_ptr<camshit::effects::IEffect>(const std::string&)> createEffect, const SDL_Keycode keyCode, const std::string& params);
+
             const std::unordered_map<std::string, SDL_KeyCode> eventMap {
                 {"1", SDL_KeyCode::SDLK_1},
                 {"2", SDL_KeyCode::SDLK_2},
@@ -88,17 +88,17 @@ namespace camshit::parser {
             std::vector<std::vector<std::shared_ptr<camshit::effects::IEffect>>> _effects;
 
 
-            const std::unordered_map<std::string, std::function<std::unique_ptr<camshit::effects::IEffect>(const std::string&)>> effectMap = {
-                {"GrayScales", [](const std::string& data) { return std::make_unique<camshit::effects::color_scales::ColorScales>(data); }},
-                {"ColorScales", [](const std::string& data) { return std::make_unique<camshit::effects::color_scales::ColorScales>(data); }},
-                {"Disco", [](const std::string&) { return std::make_unique<camshit::effects::color_scales::ColorScales>(125, 125 ,125, true); }},
-                {"MiddleDuplication", [](const std::string& data) { return std::make_unique<camshit::effects::random::middleDuplication::MiddleDuplication>(data); }},
-                {"Vertical", [](const std::string& data) { return std::make_unique<camshit::effects::reverse::vertical::Vertical>(); }},
-                {"Horizontal", [](const std::string& data) { return std::make_unique<camshit::effects::reverse::horizontal::Horizontal>(); }},
-                {"FlyEffect", [](const std::string& data) { return std::make_unique<camshit::effects::random::flyEffect::FlyEffect>(data); }},
-                {"SquareSplit", [](const std::string& data) { return std::make_unique<camshit::effects::random::squareSplit::SquareSplit>(data); }},
-                {"Image", [](const std::string& data) { return std::make_unique<camshit::effects::texture::image::Image>(data); }},
-                {"Test", [](const std::string& data) { return std::make_unique<camshit::effects::random::test::Test>(); }}
+            const std::unordered_map<std::string, std::function<std::shared_ptr<camshit::effects::IEffect>(const std::string&)>> effectMap = {
+                {"GrayScales", [](const std::string& data) { return std::make_shared<camshit::effects::color_scales::ColorScales>(data); }},
+                {"ColorScales", [](const std::string& data) { return std::make_shared<camshit::effects::color_scales::ColorScales>(data); }},
+                {"Disco", [](const std::string&) { return std::make_shared<camshit::effects::color_scales::ColorScales>(125, 125 ,125, true); }},
+                {"MiddleDuplication", [](const std::string& data) { return std::make_shared<camshit::effects::random::middleDuplication::MiddleDuplication>(data); }},
+                {"Vertical", [](const std::string& data) { return std::make_shared<camshit::effects::reverse::vertical::Vertical>(); }},
+                {"Horizontal", [](const std::string& data) { return std::make_shared<camshit::effects::reverse::horizontal::Horizontal>(); }},
+                {"FlyEffect", [](const std::string& data) { return std::make_shared<camshit::effects::random::flyEffect::FlyEffect>(data); }},
+                {"SquareSplit", [](const std::string& data) { return std::make_shared<camshit::effects::random::squareSplit::SquareSplit>(data); }},
+                {"Image", [](const std::string& data) { return std::make_shared<camshit::effects::texture::image::Image>(data); }},
+                {"Test", [](const std::string& data) { return std::make_shared<camshit::effects::random::test::Test>(); }}
             };
 
             std::unordered_map<SDL_Keycode, size_t> _keyEffectMap;
