@@ -46,7 +46,18 @@ namespace camshit {
     }
 
     void CamShit::initVirtualCamera() {
+        static bool isVCamCreated = false;
         if (!virtualCamera.isOpen() && !virtualCamera.openDevice()) {
+            if (!virtualCamera.isOpen()) {
+                if (!isVCamCreated) {
+                    std::cerr << "Virtual camera device is not open, attempting to create a new one." << std::endl;
+                    system("sudo modprobe v4l2loopback devices=1 video_nr=2 card_label='VirtualCam' exclusive_caps=1");
+                    isVCamCreated = true;
+                    usleep(1000000);
+                    this->initVirtualCamera();
+                    return;
+                }
+            }
             throw std::runtime_error("Failed to open virtual camera device");
         }
         if (!virtualCamera.initDevice()) {
