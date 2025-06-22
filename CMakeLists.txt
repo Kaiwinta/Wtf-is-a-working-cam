@@ -14,6 +14,14 @@ set(CMAKE_BUILD_TYPE Release)
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
+#Find OpenCV
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+find_package(VTK REQUIRED)
+include(${VTK_USE_FILE})
+
+find_package(Protobuf REQUIRED)
 
 # Source files
 set(SOURCES
@@ -39,6 +47,7 @@ set(SOURCES
     src/Effects/Reverse/Horizontal/Horizontal.cpp
 
     src/Effects/Texture/Image/Image.cpp
+    src/Effects/Texture/Video/Video.cpp
 
     dependencies/gifdec/gifdec.c
 )
@@ -68,6 +77,7 @@ target_include_directories(camShit PRIVATE
     ${PROJECT_SOURCE_DIR}/src/Effects/Reverse/Vertical
     ${PROJECT_SOURCE_DIR}/src/Effects/Reverse/Horizontal
     ${PROJECT_SOURCE_DIR}/src/Effects/Texture/Image
+    ${PROJECT_SOURCE_DIR}/src/Effects/Texture/Video
 
     $(PROJECT_SOURCE_DIR)/dependencies/stb/stb_image
     $(PROJECT_SOURCE_DIR)/dependencies/gifdec
@@ -77,4 +87,7 @@ target_include_directories(camShit PRIVATE
 # Link libraries
 target_link_libraries(camShit
     ${SDL2_LIBRARIES}
+    ${OpenCV_LIBS}
+    ${VTK_LIBRARIES}
+    ${Protobuf_LIBRARIES}
 )

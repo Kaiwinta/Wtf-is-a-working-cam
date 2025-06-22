@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <string> 
+#include <string>
 #include <SDL2/SDL.h>
 #include <memory>
 #include <vector>
@@ -24,6 +24,7 @@
 #include "MiddleDuplication.hpp"
 #include "SquareSplit.hpp"
 #include "Image.hpp"
+#include "Video.hpp"
 
 namespace camshit::parser {
     class Parser {
@@ -98,6 +99,7 @@ namespace camshit::parser {
                 {"FlyEffect", [](const std::string& data) { return std::make_shared<camshit::effects::random::flyEffect::FlyEffect>(data); }},
                 {"SquareSplit", [](const std::string& data) { return std::make_shared<camshit::effects::random::squareSplit::SquareSplit>(data); }},
                 {"Image", [](const std::string& data) { return std::make_shared<camshit::effects::texture::image::Image>(data); }},
+                {"Video", [](const std::string& data) { return std::make_shared<camshit::effects::texture::video::Video>(data); }},
                 {"Test", [](const std::string& data) { return std::make_shared<camshit::effects::random::test::Test>(); }}
             };
 
