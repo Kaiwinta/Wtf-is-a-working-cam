@@ -37,6 +37,8 @@ namespace camshit::effects::texture::image{
             int imgHeight = 0;
             bool loaded = false;
             bool isGif = false;
+            int nbFramesToWait = 0;
+            int currentFrameIndex = 0;
             ImageConfig _config;
             std::vector<std::vector<uint8_t>> gif_frames;
             std::vector<unsigned char> rgb_data;

@@ -49,7 +49,7 @@ namespace camshit::parser {
         }
     }
 
-    void Parser::addEffect(std::function<std::unique_ptr<camshit::effects::IEffect>(const std::string&)> createEffect, const SDL_Keycode keyCode, const std::string& params) {
+    void Parser::addEffect(std::function<std::shared_ptr<camshit::effects::IEffect>(const std::string&)> createEffect, const SDL_Keycode keyCode, const std::string& params) {
 
         auto keyEffectIt = _keyEffectMap.find(keyCode);
         if (keyEffectIt == _keyEffectMap.end()) {

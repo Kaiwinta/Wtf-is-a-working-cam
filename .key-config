@@ -11,6 +11,7 @@ F | FlyEffect           | frequency:"5" # this means that 1 / 5 of the screen wi
 S | SquareSplit         | height:"50" width:"50"
 Y | SquareSplit         | height:"1" width:"50" #Slice the screen into 50 columns
 P | Image               | path:"./test.gif" x:"150" y:"150" #Give the path to the image and the position where it should be drawn
+P | Image               | path:"./test.gif" x:"400" y:"400" frameDelay:"3" # ADd a frame delay to the gif
 P | Image               | path:"./test.png" x:"0" y:"150" #Give the path to the image and the position where it should be drawn
 P | Image               | path:"./test.png" x:"0" y:"0" #Give the path to the image and the position where it should be drawn
 P | Image               | path:"./test.png" x:"150" y:"0" #Give the path to the image and the position where it should be drawn
