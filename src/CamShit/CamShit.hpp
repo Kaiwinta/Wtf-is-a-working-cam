@@ -33,7 +33,7 @@ namespace camshit {
             int _height;
             bool _displayBeforeEffect;
             unsigned char* _rgbFrameDatas;
-            
+
             std::string _cameraPath;
             std::string _virtualCameraPath;
             camera::Camera camera;

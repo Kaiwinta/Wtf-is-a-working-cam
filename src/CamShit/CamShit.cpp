@@ -23,7 +23,7 @@ namespace camshit {
     CamShit::~CamShit() {
         delete[] _rgbFrameDatas;
     }
-    
+
     void CamShit::init() {
         initCamera();
         initVirtualCamera();
